@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION='1.0.7'
+VERSION='1.0.8'
 
 declare -a LIST=$(curl -s -H "Content-Type: application/json" https://registry.hub.docker.com/v1/repositories/goel/jekyll/tags | sed -e 's/[][]//g' -e 's/"//g' -e 's/ //g' | tr '}' '\n'  | awk -F: '{print $3}')
 
