@@ -1,10 +1,13 @@
 FROM alpine:3.7
 LABEL maintainer="Sumit Goel <sumit@goel.pw>"
 
-RUN echo 'export LC_ALL=C.UTF-8' >> /etc/profile && \
-  echo 'export LANG=en_US.UTF-8' >> /etc/profile && \
-  echo 'export LANGUAGE=en_US.UTF-8' >> /etc/profile && \
-  source /etc/profile && \
+ARG VERSION
+
+ENV LC_ALL=C.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US.UTF-8
+
+RUN echo "${VERSION}" > /tmp/VERSION && \
   apk update && \
   apk add --clean-protected --no-cache \
           bash \
