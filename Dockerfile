@@ -1,9 +1,10 @@
 FROM alpine:3.7
 LABEL maintainer="Sumit Goel <sumit@goel.pw>"
 
-RUN export LC_ALL=C.UTF-8 && \
-  export LANG=en_US.UTF-8 && \
-  export LANGUAGE=en_US.UTF-8 && \
+RUN echo 'export LC_ALL=C.UTF-8' >> /etc/profile && \
+  echo 'export LANG=en_US.UTF-8' >> /etc/profile && \
+  echo 'export LANGUAGE=en_US.UTF-8' >> /etc/profile && \
+  source /etc/profile && \
   apk update && \
   apk add --clean-protected --no-cache \
           bash \
@@ -25,8 +26,9 @@ RUN export LC_ALL=C.UTF-8 && \
           python-dev \
           nodejs \
           nodejs-npm && \
-  rm -rf /var/cache/apk/* && \
-  npm install -g firebase-tools && \
+  rm -rf /var/cache/apk/*
+
+RUN npm install -g firebase-tools && \
   gem install jekyll:3.7.3 \
               jekyll-feed:0.9.3 \
               jekyll-seo-tag:2.4.0 \
@@ -42,5 +44,3 @@ RUN export LC_ALL=C.UTF-8 && \
               --no-document
 
 WORKDIR /srv
-
-ENTRYPOINT /bin/bash
