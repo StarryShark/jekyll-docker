@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION='1.0.8'
+VERSION='1.0.10'
 
 declare -a LIST=$(curl -s -H "Content-Type: application/json" https://registry.hub.docker.com/v1/repositories/goel/jekyll/tags | sed -e 's/[][]//g' -e 's/"//g' -e 's/ //g' | tr '}' '\n'  | awk -F: '{print $3}')
 
@@ -25,10 +25,14 @@ docker build --pull \
 # Test image
 TEST=$(docker run --rm goel/jekyll:latest bash -c 'cat /tmp/VERSION')
 
+echo "Testing: $TEST"
+
 if [ "$VERSION" != "$TEST" ]; then
   echo 'Version mismatch. Test failed.'
   exit 1
 fi
 
 # Push image to public docker hub
-docker push goel/jekyll
+if [ "$1" == "push" ]; then
+  docker push goel/jekyll
+fi
