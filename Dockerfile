@@ -31,10 +31,13 @@ RUN echo "${VERSION}" > /tmp/VERSION && \
           nodejs-npm && \
   rm -rf /var/cache/apk/*
 
-RUN npm install -g firebase-tools \
-                   eslint \
-                   nsp && \
-  gem install jekyll:3.7.3 \
+RUN npm install -g firebase-tools@3.18.4 \
+                   eslint@4.19.1 \
+                   eslint-config-sumitgoelpw@1.1.0 \
+                   eslint-plugin-promise@3.7.0 \
+                   npm-check@5.7.0 \
+                   nsp@3.2.1 && \
+  gem install jekyll:3.8.0 \
               jekyll-feed:0.9.3 \
               jekyll-seo-tag:2.4.0 \
               jekyll-redirect-from:0.13.0 \
